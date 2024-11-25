@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Random Joke - API Integration</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        #result button {
+            background-color: red;
+            padding: 15px;
+            color: #ffffff;
+            font-weight: 600;
+            font-size: 18px;
+            border: none;
+            cursor: pointer;
+            box-shadow: 9px 13px #c0c0c040;
+        }
+        #result {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 0;
+            position: fixed;
+            left: 0;
+            top: 0%;
+        }
+        #resultPara p {
+            padding: 49px;
+            background-color: #d2d1d1;
+            margin: 28px -1px;
+            width: fit-content;
+            font-size: 18px;
+            font-weight: 500;
+        }
+    </style>
+
+</head>
+
+<body>
+
+
+
+    <div id="result">
+        <!-- Joke will be displayed here -->
+        <div id="resultPara">
+            <button onclick="displayResult()">Random Joke</button>
+        </div>
+
+    </div>
+
+    <!-- API Integration for random joke -->
+    <script>
+        // Function to fetch and display a random joke
+        function displayResult() {
+            fetch('https://geek-jokes.sameerkumar.website/api?format=json')
+                .then(response => response.json()) // Parse the JSON response
+                .then(data => {
+                    // Access the DOM element
+                    let resultItem = document.getElementById('resultPara');
+
+                    // Update the DOM with the joke
+                    resultItem.innerHTML = `
+                        <button onclick="displayResult()">Random Joke</button>
+                        <p>${data.joke}</p>
+                    `;
+                })
+                .catch(error => console.error('Error:', error));
+        }
+    </script>
+
+
+</body>
+
+</html>
